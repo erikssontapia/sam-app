@@ -10,7 +10,6 @@ phases:
       - pip install pipenv --user
       - pipenv install awscli aws-sam-cli
       - pipenv run sam package --template-file template.yaml --s3-bucket my-app-emts --output-template-file packaged.yaml
-      - pipenv run sam publish --template packaged.yaml --region us-east-1
 artifacts:
   files:
     - packaged.yaml
