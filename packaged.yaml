@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
 Description: 'sam-app
 
   Sample SAM Template for sam-app
@@ -7,6 +8,32 @@ Description: 'sam-app
 Globals:
   Function:
     Timeout: 3
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: sam-app
+    Description: hello world
+    Author: erikssontapia
+    SpdxLicenseId: Apache-2.0
+    LicenseUrl: s3://my-app-emts/d41d8cd98f00b204e9800998ecf8427e
+    ReadmeUrl: s3://my-app-emts/12aa48253bd91e2866950ea3b805093d
+    Labels:
+    - tests
+    HomePageUrl: https://github.com/erikssontapia/sam-app
+    SemanticVersion: 0.0.1
+    SourceCodeUrl: https://github.com/erikssontapia/sam-app
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://my-app-emts/1c3fab0f82769f66b877d3caecb9b6ac
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
@@ -24,17 +51,3 @@ Outputs:
       Fn::GetAtt:
       - HelloWorldFunctionRole
       - Arn
-Resources:
-  HelloWorldFunction:
-    Properties:
-      CodeUri: s3://my-app-emts/928e14d967dd9b1fe1ee69e2d14171bd
-      Events:
-        HelloWorld:
-          Properties:
-            Method: get
-            Path: /hello
-          Type: Api
-      Handler: app.lambda_handler
-      Runtime: python3.7
-    Type: AWS::Serverless::Function
-Transform: AWS::Serverless-2016-10-31
